@@ -1,0 +1,27 @@
+13-09-2016
+
+synaptic 
+
+-monodevelop
+-monodevelop-database
+-monodoc-browser
+-monodoc-gtk2.0-manual
+-monodoc-mysql-manual
+-monodevelop-versioncontrol
+
+git
+
+descargar bitnami desde la pagina oficial. version 5.5.25.0 linux
+Poner el bit de ejecucion e instalar
+
+15-09-2016
+
+Crear repositorio en github
+clonar al escritorio --->git clone url
+
+configurar el git
+
+ git config --global user.name jonathanortizdam1993445
+ git config --global user.email dam.jortiz@institutoserpis.org
+ git config --global push.default simple
+
