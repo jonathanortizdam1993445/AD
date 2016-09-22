@@ -1,0 +1,30 @@
+1º ejercicio--->crear menu y funcionamiento externo con la tabla de categoria con los campos id y nombre
+
+0 salir
+1 nuevo
+2 editar
+3 eliminar
+4 listar todos
+
+dbconnection
+
+createcommand
+dbcommand
+	commandtest  "insert into "
+	parameter
+	executeReader (solo SELECT)
+	executeNonquery (insert,update,delete, etc...)
+
+2º ejercicio--->tabla articulo con los campos id,nombre,precio,categoria
+
+categoria(articulo)--->clave ajena---->id(categoria)
+
+on delete--->NO HACE FALTA EN ESTE CASO
+on update--->NO HACE FALTA EN ESTE CASO
+
+1º PARTE Particulo--->GTK
+
+visualizar la tabla articulo en un treeview
+
+
+
