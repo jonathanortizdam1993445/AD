@@ -71,7 +71,6 @@ public partial class MainWindow
 		this.newAction.Activated += new global::System.EventHandler (this.OnNewActionActivated);
 		this.editAction.Activated += new global::System.EventHandler (this.OnEditActionActivated);
 		this.deleteAction.Activated += new global::System.EventHandler (this.OnDeleteActionActivated);
-		this.refreshAction.Activated += new global::System.EventHandler (this.OnRefreshActionActivated);
 		this.quitAction.Activated += new global::System.EventHandler (this.OnQuitActionActivated);
 	}
 }
