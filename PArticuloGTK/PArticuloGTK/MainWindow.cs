@@ -71,4 +71,9 @@ public partial class MainWindow: Gtk.Window
 		delete.Show ();
 	}
 	
+	protected void OnRefreshActionActivated (object sender, EventArgs e)
+	{
+		//TODO
+
+	}
 }
