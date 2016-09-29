@@ -58,6 +58,17 @@ namespace PDbPrueba
 				dbcomand.Parameters.Add (dbdataparameter);
 				dbcomand.ExecuteNonQuery ();
 
+					//EXCEPCIONES
+
+					//private const int ERP_DUP_ENTRY =1062;
+					//private static string getUserMessage(MysqlException ex){
+					//switch (ex.Number){
+					//case ERP_DUP_ENTRY:
+					//	retrun "Dato duplicado.Ese dato ya existe";
+					// }
+					// return ex.Message;
+					//}
+
 				break;
 
 			case '2':

@@ -46,8 +46,6 @@ public partial class MainWindow: Gtk.Window
 		query.Close ();
 
 
-
-
 		dbconnection.Close ();
 
 	}
@@ -62,24 +60,15 @@ public partial class MainWindow: Gtk.Window
 		Nuevo abrir = new Nuevo ();
 		abrir.Show ();
 	}
-
-	protected void OnEditActionActivated (object sender, EventArgs e)
-	{
-		throw new NotImplementedException ();
-	}
 	
-	protected void OnDeleteActionActivated (object sender, EventArgs e)
-	{
-
-	}
-	
-	protected void OnRefreshActionActivated (object sender, EventArgs e)
-	{
-
-	}
-
 	protected void OnQuitActionActivated (object sender, EventArgs e)
 	{
 		Application.Quit ();
 	}
+	protected void OnDeleteActionActivated (object sender, EventArgs e)
+	{
+		Eliminar delete = new Eliminar ();
+		delete.Show ();
+	}
+	
 }

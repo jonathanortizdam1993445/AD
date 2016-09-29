@@ -69,7 +69,6 @@ public partial class MainWindow
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.newAction.Activated += new global::System.EventHandler (this.OnNewActionActivated);
-		this.editAction.Activated += new global::System.EventHandler (this.OnEditActionActivated);
 		this.deleteAction.Activated += new global::System.EventHandler (this.OnDeleteActionActivated);
 		this.quitAction.Activated += new global::System.EventHandler (this.OnQuitActionActivated);
 	}
