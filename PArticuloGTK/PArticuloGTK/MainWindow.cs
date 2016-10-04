@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using Gtk;
 using PArticuloGTK;
 
+
 public partial class MainWindow: Gtk.Window
 {	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
@@ -73,7 +74,24 @@ public partial class MainWindow: Gtk.Window
 	
 	protected void OnRefreshActionActivated (object sender, EventArgs e)
 	{
-		//TODO
+		IDbConnection dbconnection = new MySqlConnection (
+			"Database=dbprueba;User Id=root;Password=sistemas"
+			);
+		dbconnection.Open ();
 
+		IDbCommand dbcomand = dbconnection.CreateCommand ();
+		dbcomand.CommandText = "select * from articulo";
+		ListStore lista = new ListStore (typeof(long), typeof(string),typeof(string),typeof(long));
+		treeview2.Model = lista;
+		lista.Clear();
+		IDataReader query;
+		query=dbcomand.ExecuteReader();
+		while (query.Read()) {
+
+			//para que lea y liste los datos de los campos
+			lista.AppendValues (query["id"],query["nombre"]," "+query["precio"],query["categoria"]);
+		}
+		query.Close ();
+		dbconnection.Close ();
 	}
 }
