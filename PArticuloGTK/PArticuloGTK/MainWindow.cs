@@ -94,4 +94,10 @@ public partial class MainWindow: Gtk.Window
 		query.Close ();
 		dbconnection.Close ();
 	}
+
+	protected void OnEditActionActivated (object sender, EventArgs e)
+	{
+		Editar edit = new Editar ();
+		edit.Show ();
+	}
 }
