@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGTKArticuloLuis", "PGTKArticuloLuis\PGTKArticuloLuis.csproj", "{907513A9-3E79-47E6-8DEA-4A7857A618FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{907513A9-3E79-47E6-8DEA-4A7857A618FE}.Debug|x86.ActiveCfg = Debug|x86
+		{907513A9-3E79-47E6-8DEA-4A7857A618FE}.Debug|x86.Build.0 = Debug|x86
+		{907513A9-3E79-47E6-8DEA-4A7857A618FE}.Release|x86.ActiveCfg = Release|x86
+		{907513A9-3E79-47E6-8DEA-4A7857A618FE}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PGTKArticuloLuis\PGTKArticuloLuis.csproj
+	EndGlobalSection
+EndGlobal

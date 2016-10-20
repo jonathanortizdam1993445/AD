@@ -35,6 +35,7 @@ public partial class MainWindow: Gtk.Window
 		Application.Quit ();
 		a.RetVal = true;
 	}
+}
 
 	public class Categoria{
 		public Categoria(long id,String nombre){
@@ -46,7 +47,7 @@ public partial class MainWindow: Gtk.Window
 	}
 
 	public class Articulo{
-		public Articulo(long id, String nombre, decimal precio){
+		public Articulo(long id, string nombre, decimal precio){
 			Id=id;
 			Nombre=nombre;
 			Precio=precio;
@@ -56,4 +57,4 @@ public partial class MainWindow: Gtk.Window
 		public decimal Precio { get; set;}
 	}
 
-}
+
