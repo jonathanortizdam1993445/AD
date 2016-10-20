@@ -49,7 +49,7 @@ namespace PGTKArticuloLuis
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboBoxCategoria = global::Gtk.ComboBoxEntry.NewText ();
+			this.comboBoxCategoria = new global::Gtk.ComboBoxEntry ();
 			this.comboBoxCategoria.Name = "comboBoxCategoria";
 			this.table1.Add (this.comboBoxCategoria);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.comboBoxCategoria]));

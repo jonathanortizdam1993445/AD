@@ -1,7 +1,10 @@
 using System;
 using Gtk;
+using System.Reflection;
+using System.Collections;
 using System.Collections.Generic;
 
+using Org.InstitutoSerpis.Ad;
 namespace PGTKArticuloLuis
 {
 	public partial class ArticuloView : Gtk.Window
@@ -14,24 +17,6 @@ namespace PGTKArticuloLuis
 
 			saveAction.Sensitive = false;
 
-			List<Categoria> list = new List<Categoria> ();
-			list.Add (new Categoria (1L, "categoria 1"));
-			list.Add (new Categoria (2L, "categoria 2"));
-
-			ListStore listStore = new ListStore (typeof(object));
-			foreach (object item in list)
-				listStore.AppendValues (item);
-
-			CellRendererText cellRendererText = new CellRendererText();
-
-			comboBoxCategoria.PackStart (cellRendererText, false);
-
-			comboBoxCategoria.SetCellDataFunc (cellRendererText, delegate(CellLayout cell_layout, CellRenderer cell, TreeModel tree_model, TreeIter iter) {
-
-			});
-
-			comboBoxCategoria.Model = listStore;
-
 			entryNombre.Changed += delegate {
 				string value = entryNombre.Text.Trim();
 				saveAction.Sensitive = !value.Equals("");
@@ -40,7 +25,16 @@ namespace PGTKArticuloLuis
 			saveAction.Activated += delegate {
 				Console.WriteLine ("saveAction.Activated");
 			};
+
+			List<Categoria> list = new List<Categoria> ();
+			list.Add (new Categoria (1L, "categoria 1"));
+			list.Add (new Categoria (2L, "categoria 2"));
+
+			ComboBoxHelper.Fill (comboBoxCategoria, list, "Nombre");
+
 		}
+
+
 	}
 
 	public class Categoria {
