@@ -124,7 +124,7 @@ namespace PGTKArticuloLuis
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 400;
-			this.DefaultHeight = 300;
+			this.DefaultHeight = 155;
 			this.Show ();
 		}
 	}
