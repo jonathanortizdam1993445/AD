@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Gtk;
 using Org.InstitutoSerpis.Ad;
 
 namespace PArticulo
@@ -39,6 +40,16 @@ namespace PArticulo
 			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
 			DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
 			dbCommand.ExecuteNonQuery();
+		}
+		private const string DELETE_SQL="delete from articulo where id=@id";
+
+		public static void deletete(object id){
+			IDbCommand dbcommand = App.Instance.DbConnection.CreateCommand ();
+			dbcommand.CommandText = DELETE_SQL;
+	//		long id=(long)TreeViewHelper.GetId (id);
+			DbCommandHelper.AddParameter (dbcommand, "id", id);
+			dbcommand.ExecuteNonQuery ();
+		
 		}
 
 

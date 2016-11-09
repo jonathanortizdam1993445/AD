@@ -39,7 +39,14 @@ public partial class MainWindow: Gtk.Window
 				"¿Quieres eliminar el registro?");
 			ResponseType Response =(ResponseType)messagedialog.Run();
 			messagedialog.Destroy();
-			if (Response==ResponseType.Yes){
+			if (Response !=ResponseType.Yes){
+				return;
+				Console.WriteLine("id ='{0}' ",TreeViewHelper.GetId(treeView));
+
+			}
+			else{
+				ArticuloDao.deletete(TreeViewHelper.GetId(treeView));
+				refreshAction.Activate();
 				return;
 			}
 	};
