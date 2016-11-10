@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using Gtk;
 using Org.InstitutoSerpis.Ad;
 
 namespace PArticulo
 {
+	
 	public class ArticuloDao
 	{
-		public ArticuloDao ()
-		{
-		}
+
 		private const string SELECT_SQL = "select * from articulo";
 
 		public static List<Articulo> GetList(){
@@ -49,6 +49,7 @@ namespace PArticulo
 	//		long id=(long)TreeViewHelper.GetId (id);
 			DbCommandHelper.AddParameter (dbcommand, "id", id);
 			dbcommand.ExecuteNonQuery ();
+			//TODO LANZAR EXCEPCION SI NO ELIMNIA REGISTRO
 		
 		}
 

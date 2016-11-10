@@ -31,30 +31,19 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		deleteAction.Activated+= delegate {
-			MessageDialog messagedialog = new MessageDialog(
-				this,
-				DialogFlags.Modal,
-				MessageType.Question,
-				ButtonsType.YesNo,
-				"¿Quieres eliminar el registro?");
-			ResponseType Response =(ResponseType)messagedialog.Run();
-			messagedialog.Destroy();
-			if (Response !=ResponseType.Yes){
-				return;
-				Console.WriteLine("id ='{0}' ",TreeViewHelper.GetId(treeView));
 
-			}
-			else{
+			if(WindowHelper.Confirm(this,"¿Quieres eliminar el registro?"))
 				ArticuloDao.deletete(TreeViewHelper.GetId(treeView));
 				refreshAction.Activate();
 				return;
-			}
 	};
 
 
 		refreshAction.Activated += delegate {
 			fill();
 		};
+
+
 
 		new ArticuloView ();
 	}
@@ -63,7 +52,7 @@ public partial class MainWindow: Gtk.Window
 
 		editAction.Sensitive = false;
 		deleteAction.Sensitive = false;
-		IList list = ArticuloDao.GetList();
+		IList list = EntityDao.GetList<Articulo> ();
 
 		TreeViewHelper.Fill (treeView, list);
 	}
