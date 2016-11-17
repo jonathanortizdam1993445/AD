@@ -95,6 +95,11 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-save</property>
       </action>
+      <action id="editAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-edit</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">ArticuloView</property>

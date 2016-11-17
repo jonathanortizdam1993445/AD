@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Data;
+using System.Reflection;
 
 namespace Org.InstitutoSerpis.Ad
 {
@@ -29,11 +31,6 @@ namespace Org.InstitutoSerpis.Ad
 			AppendColumns (treeView, propertyNames.ToArray ());
 		}
 
-		/// <summary>
-		/// Appends the columns in the TreeView 
-		/// </summary>
-		/// <param name="treeView">Tree view.</param>
-		/// <param name="list">List.</param>
 		private static void appendColumns(TreeView treeView, IList list) {
 			if (treeView.Columns.Length != 0)
 				return;
@@ -66,15 +63,19 @@ namespace Org.InstitutoSerpis.Ad
 			appendValues (treeView, list);
 		}
 
-		public static object GetId(TreeView treeview) {
-			TreeIter treeIter; 
-			bool selected =treeview.Selection.GetSelected(out treeIter);
-			if (!selected)
+		
+		public static object GetId(TreeView treeView) {
+			TreeIter treeIter;
+			bool selected = treeView.Selection.GetSelected(out treeIter);
+			if (!selected) {
 				return null;
-			object item = treeview.Model.GetValue(treeIter, 0);
+			}
+			object item = treeView.Model.GetValue(treeIter, 0);
 			return item.GetType ().GetProperty ("Id").GetValue (item, null);
 		}
-	}
+
+	
+
 
 }
-
+}

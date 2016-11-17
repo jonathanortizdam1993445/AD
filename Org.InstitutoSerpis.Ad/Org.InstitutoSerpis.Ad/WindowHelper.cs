@@ -5,19 +5,18 @@ namespace Org.InstitutoSerpis.Ad
 {
 	public class WindowHelper
 	{
-		public static bool Confirm(Window parent,string message){
-			MessageDialog messagedialog = new MessageDialog(
+		public static bool Confirm(Window parent, string message){
+			MessageDialog messageDialog = new MessageDialog(
 				parent,
 				DialogFlags.Modal,
 				MessageType.Question,
 				ButtonsType.YesNo,
 				message
 				);
-			messagedialog.Title = parent.Title;
-			ResponseType response =(ResponseType)messagedialog.Run();
-			messagedialog.Destroy();
+			messageDialog.Title = parent.Title;
+			ResponseType response = (ResponseType)messageDialog.Run();
+			messageDialog.Destroy();
 			return response == ResponseType.Yes;
-
 		}
 	}
 }

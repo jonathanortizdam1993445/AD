@@ -1,7 +1,6 @@
 using Gtk;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections;
 using System.Data;
 
@@ -27,33 +26,31 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		newAction.Activated += delegate {
-			new ArticuloView();
+			Articulo articulo = new Articulo();
+			articulo.Nombre=String.Empty;//los entry esperan que no sean null
+			articulo.Precio = 0;//hasta que se permita null
+			new ArticuloView(articulo);
 		};
 
-		deleteAction.Activated+= delegate {
+		editAction.Activated += delegate {
+			Articulo articulo = ArticuloDao.Load(TreeViewHelper.GetId(treeView));
+			new ArticuloView(articulo);
+		};
 
-			if(WindowHelper.Confirm(this,"¿Quieres eliminar el registro?"))
-				ArticuloDao.deletete(TreeViewHelper.GetId(treeView));
-				refreshAction.Activate();
-				return;
-	};
-
+		deleteAction.Activated += delegate {
+			if (WindowHelper.Confirm(this,"Quieres eliminar el registro?"))
+				ArticuloDao.delete(TreeViewHelper.GetId(treeView));
+		};
 
 		refreshAction.Activated += delegate {
 			fill();
 		};
-
-
-
-		new ArticuloView ();
 	}
 
 	private void fill() {
-
 		editAction.Sensitive = false;
 		deleteAction.Sensitive = false;
 		IList list = EntityDao.GetList<Articulo> ();
-
 		TreeViewHelper.Fill (treeView, list);
 	}
 
