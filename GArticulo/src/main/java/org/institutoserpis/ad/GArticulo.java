@@ -97,6 +97,9 @@ private static Scanner tcl;
 	}
 	
 	public static void modificar() throws SQLException{
+		
+		listartodos();
+		
 		System.out.println("Indica el id");
 		int id=tcl.nextInt();
 		
@@ -139,13 +142,11 @@ private static Scanner tcl;
 		String sql="SELECT * FROM articulo where id='"+id+"'";
 		
 		PreparedStatement ps= connection.prepareStatement(sql);
-		
+		System.out.printf("%5s %30s %10s %5s\n", "id", "nombre", "precio","categoria");
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			System.out.println("id "+rs.getInt("id"));
-			System.out.println("Nombre "+rs.getString("nombre"));
-			System.out.println("Precio "+rs.getDouble("precio"));
-			System.out.println("Categoria "+rs.getInt("categoria"));
+			System.out.printf("%5s %30s %10s %5s\n",rs.getInt("id"),rs.getString("nombre"),rs.getDouble("precio"),rs.getInt("categoria"));
+			System.out.println();
 			
 		}
 		rs.close();
@@ -155,14 +156,11 @@ private static Scanner tcl;
 		String sql="SELECT * FROM articulo";
 		
 		PreparedStatement ps= connection.prepareStatement(sql);
-		
+		System.out.printf("%5s %30s %10s %5s\n", "id", "nombre", "precio","categoria");
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			System.out.println("id "+rs.getInt("id"));
-			System.out.println("Nombre "+rs.getString("nombre"));
-			System.out.println("Precio "+rs.getDouble("precio"));
-			System.out.println("Categoria "+rs.getInt("categoria"));
-			
+			System.out.printf("%5s %30s %10s %5s\n",rs.getInt("id"),rs.getString("nombre"),rs.getDouble("precio"),rs.getInt("categoria"));
+			System.out.println();
 		}
 		rs.close();
 		ps.close();
