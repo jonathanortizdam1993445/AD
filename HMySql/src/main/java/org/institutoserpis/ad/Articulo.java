@@ -6,15 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Articulo {
-	
-	
-	private long id,categoria;
+		
+	private long id;
 	private String nombre;
 	private BigDecimal precio;
-	
+	private Categoria categoria;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,12 +25,7 @@ public class Articulo {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(long categoria) {
-		this.categoria = categoria;
-	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -42,5 +38,18 @@ public class Articulo {
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
-
+	
+	@ManyToOne
+	@JoinColumn(name="categoria")
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s %s %s(categorias=%s)", id, nombre,precio,categoria);
+	}
 }
