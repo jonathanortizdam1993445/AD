@@ -48,29 +48,28 @@ public class Hibernate {
 				System.out.println("9. Salir");
 				opci=tcl.nextInt();
 				
-				do {
-					
-					switch (opci) {
-					case 7:
+					if(opci==7) {
 						System.out.println("Vas a insertar un cliente");
 						System.out.println("Indica el nombre");
 						String nombre=tcl.next();
 						nuevocliente(nombre);
-						break;
+					}
 						
-					case 8:
+						
+					if(opci==8){
 						System.out.println("Vas a insertar un pedido");
-						nuevopedido();
-										
-					case 9:
+						System.out.println("Introduce el nombre del cliente");
+						String nombre=tcl.next();
+						System.out.println("Introduce el importe");
+						BigDecimal total=tcl.nextBigDecimal();
+						nuevopedido(nombre,total);
+					}		
+					if(opci==9){
 						System.out.println("Has salido de la opción insertar");
-						break;
-					default:
 						break;
 					}
 					
 					
-				} while (opci!=9);
 		
 			case 2:
 				System.out.println("Vas a modificar un articulo");
@@ -120,30 +119,24 @@ public class Hibernate {
 		entityManager.close();
 	}
 	
-public static void nuevopedido(){
+public static void nuevopedido(String idcliente,BigDecimal importe){
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		Cliente cliente = new Cliente();
-		entityManager.persist(cliente);
+		Cliente cliente2=entityManager.getReference(Cliente.class, Long.parseLong(idcliente));
 		
-		System.out.printf(" %d %s\n" ,cliente.getId(),cliente.getNombre());
+		Pedido pedido = new Pedido();
+		pedido.setCliente(cliente2);
 		
-		List<Cliente> clientes = entityManager.createQuery("from Cliente",Cliente.class).getResultList();
+		java.util.Date fec= Calendar.getInstance().getTime();
 		
-		for(Cliente item:clientes){
-			System.out.printf(" %d %s\n",item.getId(),item.getNombre());
-		}
+		Date date= new Date(fec.getDate());
+		pedido.setFecha(date);
+		pedido.setImporte(importe);
 		
-		System.out.println("Indica el nombre del cliente");
-		String nombre=tcl.next();
-		
-		System.out.println("Indica la fecha");
-		Double precio=tcl.nextDouble();
-		
-		System.out.println("Indica el importe");
-		int categoria=tcl.nextInt();
-		
+		entityManager.persist(pedido);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 	
 	/*
