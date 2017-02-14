@@ -2,6 +2,8 @@ package org.institutoserpis.ad;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ public class Hibernate {
 	private static Scanner tcl;
 	private static EntityManager entityManager; 
 	private static EntityManagerFactory entityManagerFactory;
+	private static ResultSet rs;
 	
 	public static void main(String[] args){
 		
@@ -58,19 +61,19 @@ public class Hibernate {
 						
 					if(opci==8){
 						System.out.println("Vas a insertar un pedido");
-						System.out.println("Introduce el nombre del cliente");
+						listarcliente();
+						System.out.println("Introduce el id del cliente");
 						String nombre=tcl.next();
 						System.out.println("Introduce el importe");
 						BigDecimal total=tcl.nextBigDecimal();
 						nuevopedido(nombre,total);
-					}		
+					}
+					
 					if(opci==9){
 						System.out.println("Has salido de la opción insertar");
 						break;
 					}
 					
-					
-		
 			case 2:
 				System.out.println("Vas a modificar un articulo");
 				System.out.println();
@@ -79,26 +82,103 @@ public class Hibernate {
 				break;
 			
 			case 3:
-				System.out.println("Vas a eliminar un artículo");
-				System.out.println();
-				//eliminar();
-				break;
+						int opci3=0;
+						System.out.println("ELIMINAR");
+						System.out.println();
+						System.out.println("7. Cliente");
+						System.out.println("8. Pedido");
+						System.out.println("9. Salir");
+						opci3=tcl.nextInt();
+						
+							if(opci3==7) {
+								System.out.println("Vas a eliminar un cliente");
+								listarcliente();
+								System.out.println("Indica el id");
+								String nombre=tcl.next();
+								eliminarcliente(nombre);
+								break;
+							}
+								
+								
+							if(opci3==8){
+								System.out.println("Vas a eliminar un pedido");
+								listarpedido();
+								System.out.println("Introduce el id del cliente");
+								String nombre=tcl.next();
+								eliminarpedido(nombre);
+								break;
+							}
+							
+							if(opci3==9){
+								System.out.println("Has salido de la opción insertar");
+								break;
+							}					
 			
 			case 4:
-				System.out.println("Vas a consultar un artículo de tu base de datos");
+				int opci4=0;
+				System.out.println("CONSULTAR");
 				System.out.println();
-				//consultar();
+				System.out.println("7. Cliente");
+				System.out.println("8. Pedido");
+				System.out.println("9. Salir");
+				opci4=tcl.nextInt();
+				
+					if(opci4==7) {
+						System.out.println("Introduce el id");
+						String id=tcl.next();
+						consultarcliente(id);;
+						break;
+					}
+						
+						
+					if(opci4==8){
+						System.out.println("Introduce el id");
+						String id=tcl.next();
+						consultarpedido(id);
+						break;
+					}
+					
+					if(opci4==9){
+						System.out.println("Has salido de la opción insertar");
+						break;
+					}
+				
+				
 				break;
 			
 			case 5:
-				System.out.println("Vas a listar los artículos de tu base de datos");
+				int opci5=0;
+				System.out.println("LISTAR TODOS");
 				System.out.println();
-				//listar();
+				System.out.println("7. Cliente");
+				System.out.println("8. Pedido");
+				System.out.println("9. Salir");
+				opci5=tcl.nextInt();
+				
+					if(opci5==7) {
+						listarcliente();
+						break;
+					}
+						
+						
+					if(opci5==8){
+						listarpedido();
+						break;
+					}
+					
+					if(opci5==9){
+						System.out.println("Has salido de la opción insertar");
+						break;
+					}
+					
 				break;
-			
+			/*
+			 * 
+			 * 
 			case 0:
 				System.out.println("Has salido del programa");
 				break;
+			*/
 
 			default:
 				System.out.println("Opción incorrecta");
@@ -139,64 +219,99 @@ public static void nuevopedido(String idcliente,BigDecimal importe){
 		entityManager.close();
 	}
 	
-	/*
-	public static void modificar(){
+	public static void eliminarcliente(String idcliente){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 		
-		listartodos();
+		Cliente cliente = entityManager.getReference(Cliente.class,Long.parseLong(idcliente));
 		
-		System.out.println("Indica el id");
-		int id=tcl.nextInt();
+		entityManager.remove(cliente);
 		
-		System.out.println("Indica el nuevo nombre");
-		String nombrenuevo=tcl.next();
-		
-		System.out.println("Indica el nuevo precio");
-		Double precionuevo=tcl.nextDouble();
-		
-		System.out.println("Indica la nueva categoria");
-		int categorianuevo=tcl.nextInt();
-		
-		String sql="UPDATE articulo SET nombre=?,precio=?,categoria=? "
-				+ "where id='"+id+"'";
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		
 	}
-	public static void eliminar(){
-		System.out.println("Indica el id");
-		int id=tcl.nextInt();
+	
+	public static void eliminarpedido(String idpedido){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 		
-		String sql="DELETE FROM articulo where id='"+id+"'";
+		Pedido pedido = entityManager.getReference(Pedido.class,Long.parseLong(idpedido));
 		
+		entityManager.remove(pedido);
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		
 	}
-	public static void consultar(){
-		System.out.println("Indica el id");
-		int id=tcl.nextInt();
+	
+	
+	public static void listarcliente(){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 		
-		String sql="SELECT * FROM articulo where id='"+id+"'";
+		Cliente cliente = new Cliente();
 		
+		System.out.printf("%5s %30s\n", cliente.getId(), cliente.getNombre());
 		
-		System.out.printf("%5s %30s %10s %5s\n", "id", "nombre", "precio","categoria");
+		List<Cliente> clientes =entityManager.createQuery("from Cliente", Cliente.class).getResultList();
 		
-		while (rs.next()) {
-			System.out.printf("%5s %30s %10s %5s\n",rs.getInt("id"),rs.getString("nombre"),rs.getDouble("precio"),rs.getInt("categoria"));
-			System.out.println();
+		for (Cliente item: clientes) {
+			System.out.printf("%5s %30s\n",item.getId(),item.getNombre());
 			
 		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		
 	}
-	public static void listartodos(){
-		String sql="SELECT * FROM articulo";
+	
+	public static void listarpedido(){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 		
+		Pedido pedido = new Pedido();
 		
-		System.out.printf("%5s %30s %10s %5s\n", "id", "nombre", "precio","categoria");
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			System.out.printf("%5s %30s %10s %5s\n",rs.getInt("id"),rs.getString("nombre"),rs.getDouble("precio"),rs.getInt("categoria"));
-			System.out.println();
+		//System.out.printf("%d %s %s %s\n", pedido.getId(), pedido.getCliente(),pedido.getFecha(),pedido.getImporte());
+		
+		List<Pedido> pedidos =entityManager.createQuery("from Pedido", Pedido.class).getResultList();
+		
+		for (Pedido item: pedidos) {
+			Cliente cli=item.getCliente();
+			System.out.printf("%d %s %s %s\n",item.getId(),"cliente["+cli.getId(),cli.getNombre()+"]",item.getImporte());
+			
 		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		
 	}
-	*/
+	
+	public static void consultarcliente(String id){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Cliente cliente=entityManager.getReference(Cliente.class,Long.parseLong(id));
+		
+		System.out.printf("%d %s\n", cliente.getId(), cliente.getNombre());
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+	
+	public static void consultarpedido(String id){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Pedido pedido=entityManager.getReference(Pedido.class,Long.parseLong(id));
+		
+		System.out.printf("%d %s %s %s\n", pedido.getId(),"cliente["+pedido.getId(),pedido.getCliente()+"]",pedido.getFecha(),pedido.getImporte());
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+	
+	
 }
 
 
