@@ -75,10 +75,43 @@ public class Hibernate {
 					}
 					
 			case 2:
-				System.out.println("Vas a modificar un articulo");
+				int opci2=0;
+				System.out.println("MODIFICAR");
 				System.out.println();
-				//listar();
-				//modificar();
+				System.out.println("7. Cliente");
+				System.out.println("8. Pedido");
+				System.out.println("9. Salir");
+				opci2=tcl.nextInt();
+				
+					if(opci2==7) {
+						System.out.println("Vas a modificar un cliente");
+						listarcliente();
+						System.out.println("Indica el id");
+						String id=tcl.next();
+						System.out.println("Introduce el nombre nuevo");
+						String nombre=tcl.next();
+						modificarcliente(id,nombre);
+						break;
+					}
+						
+						
+					if(opci2==8){
+						System.out.println("Vas a modificar un pedido");
+						listarpedido();
+						System.out.println("Introduce el id del pedido");
+						String id=tcl.next();
+						System.out.println("Introduce el id del cliente");
+						String idcli=tcl.next();
+						System.out.println("Introduce el importe");
+						BigDecimal importe=tcl.nextBigDecimal();
+						modificarpedido(idcli,id,importe);
+						break;
+					}
+					
+					if(opci2==9){
+						System.out.println("Has salido de la opción insertar");
+						break;
+					}
 				break;
 			
 			case 3:
@@ -305,6 +338,37 @@ public static void nuevopedido(String idcliente,BigDecimal importe){
 		Pedido pedido=entityManager.getReference(Pedido.class,Long.parseLong(id));
 		
 		System.out.printf("%d %s %s %s\n", pedido.getId(),"cliente["+pedido.getId(),pedido.getCliente()+"]",pedido.getFecha(),pedido.getImporte());
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+	
+	public static void modificarcliente(String idcliente, String nombre){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Cliente cliente=entityManager.getReference(Cliente.class,Long.parseLong(idcliente));
+		
+		cliente.setNombre(nombre);
+		entityManager.flush();
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+	
+	public static void modificarpedido(String idcliente, String idpedido, BigDecimal importe){
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Cliente cliente=entityManager.getReference(Cliente.class,Long.parseLong(idcliente));
+		
+		Pedido pedido=entityManager.getReference(Pedido.class,Long.parseLong(idpedido));
+		
+		pedido.setCliente(cliente);
+		pedido.setImporte(importe);
+		entityManager.flush();
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();
